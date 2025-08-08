@@ -182,7 +182,12 @@ class CMS {
     $certSigner_parse = $parsedCert;
     p_debug("    getting OCSP & CRL address...");
     p_debug("      reading AIA OCSP attribute...");
-    $ocspURI = @$certSigner_parse['tbsCertificate']['attributes']['1.3.6.1.5.5.7.1.1']['value']['1.3.6.1.5.5.7.48.1'][0];
+    //$ocspURI = @$certSigner_parse['tbsCertificate']['attributes']['1.3.6.1.5.5.7.1.1']['value']['1.3.6.1.5.5.7.48.1'][0];
+    if (!empty($this->signature_data['ltv']['ocspURI'])) {
+        $ocspURI = $this->signature_data['ltv']['ocspURI'];
+    } else {
+        $ocspURI = null; // disables OCSP
+    }
     if(empty(trim($ocspURI))) {
       p_warning("        FAILED!");
     } else {
