@@ -60,6 +60,10 @@ function debug_var(...$vars) {
  * @param vars comma separated list of variables to output
  */
 function p_debug_var(...$vars) {
+    if(env('APP_DEBUG')){
+        \Log::info('ddn/sapp PDFDoc VARS:');
+        \Log::info($vars);
+    }
     // If the debug level is less than 3, suppress debug messages
     if (_DEBUG_LEVEL < 3) return;
     
@@ -107,6 +111,10 @@ function p_stderr(&$e, $tag = "Error", $level = 1) {
  * @return retval
  */
 function p_debug($e, $retval = false) {
+    if(env('APP_DEBUG')){
+        \Log::info('ddn/sapp PDFDoc:');
+        \Log::info($e);
+    }
     // If the debug level is less than 3, suppress debug messages
     if (_DEBUG_LEVEL >= 3) {
         p_stderr($e, "Debug");
